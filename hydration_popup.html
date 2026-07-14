@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Hydration Reminder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #status {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005f7a;
+        }
+
+        /* The Pop-up Modal (Hidden by default) */
+        #videoModal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 140, 186, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status">Hydration System: Inactive</div>
+    <button id="startBtn">Start Reminder System</button>
+
+    <div id="videoModal">
+        <video id="avatarVideo" controls>
+            <source src="c:\Users\DELL\OneDrive\Desktop\Coding\Python\Water reminder\Now_using_this_avatar_create_a.mp4">
+            Your browser does not support HTML video.
+        </video>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const statusText = document.getElementById('status');
+        const videoModal = document.getElementById('videoModal');
+        const avatarVideo = document.getElementById('avatarVideo');
+
+        // 30 minutes in milliseconds (30 * 60 * 1000)
+        // Change this to 5000 (5 seconds) if you want to test it quickly!
+        const reminderInterval = 1800000; 
+        
+        let timerId;
+
+        startBtn.addEventListener('click', () => {
+            // Hide button and update status
+            startBtn.style.display = 'none';
+            statusText.innerText = "Hydration System: Active. Next reminder in 30 minutes.";
+
+            // Start the timer
+            timerId = setInterval(showReminder, reminderInterval);
+        });
+
+        function showReminder() {
+            // Show the modal
+            videoModal.style.display = 'flex';
+            
+            // Play the video
+            avatarVideo.play();
+        }
+
+        // When the video finishes playing, hide the pop-up
+        avatarVideo.addEventListener('ended', () => {
+            videoModal.style.display = 'none';
+        });
+
+        // Optional: Allow clicking outside the video to close it early
+        videoModal.addEventListener('click', (e) => {
+            if(e.target === videoModal) {
+                videoModal.style.display = 'none';
+                avatarVideo.pause();
+                avatarVideo.currentTime = 0; // Reset video to start
+            }
+        });
+    </script>
+
+</body>
+</html>
