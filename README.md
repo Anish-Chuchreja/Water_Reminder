@@ -53,7 +53,7 @@ Avatar-Hydration-Reminder/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/avatar-hydration-reminder.git
+git clone https://github.com/Anish-Chuchreja/Water_Reminder.git
 ```
 
 ### Open Project
